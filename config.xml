@@ -6,6 +6,8 @@
 		<destiny value="C:\Users\fredm\OneDrive\Área de Trabalho\Teste_C++\teste\ConsoleApplication1\ConsoleApplication1"/>		
 
                 <file_name value="teste"/>
+
+		<regex search="true" value="[A-Z]{3}"/>
 		
 		<timer value="60"/>
 

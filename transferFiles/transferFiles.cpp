@@ -3,6 +3,7 @@
 #include <string>
 #include <iomanip>
 #include <iostream>
+#include <regex>
 #include <boost/filesystem.hpp>
 #include <boost/archive/basic_xml_archive.hpp>
 #include <boost/property_tree/xml_parser.hpp>
@@ -35,28 +36,41 @@ using namespace std;
 
 //}
 
-void findFiles(string origin, string fileName) {
+void findFiles(string origin, string fileName, string regexSearch, string regexValue) {
 	bool find = false;
+	regex rx = regex(regexValue);
 	for (const auto& p : fs::directory_iterator(origin)) {
 		string nomeAux = p.path().filename().string();
 		string fileFullPath;
 		int pos = nomeAux.find(fileName);
 		int posExt = fileName.find(".");
+		bool findRegex = regex_search(nomeAux, rx);
 
-		if (nomeAux.compare(fileName) == 0) { //compara o nome completo do arquivo (nome + extensão)
-			fileFullPath = origin;
-			fileFullPath += string("\\") + string(nomeAux);
-			cout << fileFullPath << endl;
-			find = true;
+		if (regexSearch == "false") {
+			if (nomeAux.compare(fileName) == 0) { //compara o nome completo do arquivo (nome + extensão)
+				fileFullPath = origin;
+				fileFullPath += string("\\") + string(nomeAux);
+				cout << fileFullPath << endl;
+				find = true;
+			}
+			else if (pos == 0) { // compara prefixo do nome passado pelo arquivo de configuração com arquivo da pasta de origem
+				fileFullPath = origin;
+				fileFullPath += string("\\") + string(nomeAux);
+				cout << fileFullPath << endl;
+				cout << findRegex << endl;
+				find = true;
+			}
+			else if (posExt == 0) { //compara com a extensão passada pelo arquivo de configuração com as extensões dos arquivos da pasta de origem
+				if (p.path().extension() == fileName) {
+					fileFullPath = origin;
+					fileFullPath += string("\\") + string(nomeAux);
+					cout << fileFullPath << endl;
+					find = true;
+				}
+			}
 		}
-		else if (pos == 0) { // compara prefixo do nome passado pelo arquivo de configuração com arquivo da pasta de origem
-			fileFullPath = origin;
-			fileFullPath += string("\\") + string(nomeAux);
-			cout << fileFullPath << endl;
-			find = true;
-		}
-		else if(posExt == 0){ //compara com a extensão passada pelo arquivo de configuração com as extensões dos arquivos da pasta de origem
-			if (p.path().extension() == fileName) {
+		else {
+			if (findRegex == true) {
 				fileFullPath = origin;
 				fileFullPath += string("\\") + string(nomeAux);
 				cout << fileFullPath << endl;
@@ -90,8 +104,10 @@ int main(void){
 		cout << "Tempo de repeticao: " << loopTimer << endl;
 		string mostRecent = pt.get<string>("xml.config.most_recent.<xmlattr>.value");
 		cout << "Most Recent Files Mode: " << mostRecent << endl;
-
-		findFiles(origin, fileName);
+		string regexValue = pt.get<string>("xml.config.regex.<xmlattr>.value");
+		string regexSearch = pt.get<string>("xml.config.regex.<xmlattr>.search");
+		cout << "Search Regex: " << regexSearch << endl;
+		findFiles(origin, fileName, regexSearch, regexValue);
 
 	}
 	catch(...) {
