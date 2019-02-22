@@ -1,3 +1,16 @@
+<!-- 	origin é o caminho de origem
+	destiny é o caminho de destino
+	file_name nome do arquivo que pode ser nome completo, prefixo ou extensão
+		casos:
+		- nome completo: escrever na forma = "nome.extensão" (não esquecer da extensão)
+		- prefixo: escrever na forma = "prefixo"
+		- extensão: escrever na forma = ".extensão" (não esquecer do ponto no início)
+	regex: search informa se deve ou não ocorrer a busca por regex, ignorando a busca pelo nome, formato = true or false
+	       value é a própria regex
+	timer é o valor em segundos de quanto em quanto tempo a função repete o loop e copia o(s) arquivo(s) novamente
+	most_recent_value é um parâmetro para definir se busca deve ou não ser feita com base no arquivo mais novo, formato = true or false
+-->
+
 <xml>
 
 	<config>
