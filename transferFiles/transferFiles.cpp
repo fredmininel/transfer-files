@@ -35,7 +35,41 @@ using namespace std;
 
 //}
 
-void main(void){
+void findFiles(string origin, string fileName) {
+	bool find = false;
+	for (const auto& p : fs::directory_iterator(origin)) {
+		string nomeAux = p.path().filename().string();
+		string fileFullPath;
+		int pos = nomeAux.find(fileName);
+		int posExt = fileName.find(".");
+
+		if (nomeAux.compare(fileName) == 0) { //compara o nome completo do arquivo (nome + extensão)
+			fileFullPath = origin;
+			fileFullPath += string("\\") + string(nomeAux);
+			cout << fileFullPath << endl;
+			find = true;
+		}
+		else if (pos == 0) { // compara prefixo do nome passado pelo arquivo de configuração com arquivo da pasta de origem
+			fileFullPath = origin;
+			fileFullPath += string("\\") + string(nomeAux);
+			cout << fileFullPath << endl;
+			find = true;
+		}
+		else if(posExt == 0){ //compara com a extensão passada pelo arquivo de configuração com as extensões dos arquivos da pasta de origem
+			if (p.path().extension() == fileName) {
+				fileFullPath = origin;
+				fileFullPath += string("\\") + string(nomeAux);
+				cout << fileFullPath << endl;
+				find = true;
+			}
+		}
+	}
+	if (find == false) { //verificação se encntrou o arquivo especificado
+		cout << "Arquivo nao encontrado, por favor, corriga o nome" << endl;
+	}
+}
+
+int main(void){
 
 	//LENDO ARQUIVO DE CONFIGURAÇÃO "config.xml" E SALVANDO VALORES
 	boost::property_tree::ptree pt;
@@ -56,6 +90,8 @@ void main(void){
 		cout << "Tempo de repeticao: " << loopTimer << endl;
 		string mostRecent = pt.get<string>("xml.config.most_recent.<xmlattr>.value");
 		cout << "Most Recent Files Mode: " << mostRecent << endl;
+
+		findFiles(origin, fileName);
 
 	}
 	catch(...) {

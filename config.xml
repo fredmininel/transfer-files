@@ -1,11 +1,11 @@
 <xml>
 
 	<config>
-		<origin value="C:\Boost\include"/>
+		<origin value="C:\Users\fredm\OneDrive\Área de Trabalho\Teste_C++\teste\ConsoleApplication1\ConsoleApplication1"/>
 
 		<destiny value="C:\Users\fredm\OneDrive\Área de Trabalho\Teste_C++\teste\ConsoleApplication1\ConsoleApplication1"/>		
 
-                <file_name value="teste.txt"/>
+                <file_name value="teste"/>
 		
 		<timer value="60"/>
 
