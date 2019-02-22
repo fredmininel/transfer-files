@@ -1,15 +1,16 @@
 <xml>
 
-                <configs>
+	<config>
+		<origin value="C:\Boost\include"/>
 
-                               <config attr="configMode" value="4"/>
+		<destiny value="C:\Users\fredm\OneDrive\Área de Trabalho\Teste_C++\teste\ConsoleApplication1\ConsoleApplication1"/>		
 
-                               <config attr="ViewMode" value="2"/>
+                <file_name value="teste.txt"/>
+		
+		<timer value="60"/>
 
-                               <config attr="OpenMode" value="1"/>
+		<most_recent value="false"/>
 
-                               <config attr="ShowMode" value="C:\Users\fredm\OneDrive\Área de Trabalho\Teste_C++\teste\ConsoleApplication1\ConsoleApplication1"/>
-
-                </configs>
-
+        </config>
+	
 </xml>

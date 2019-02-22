@@ -1,8 +1,14 @@
 #include <fstream>
 #include <stdio.h>
+#include <string>
 #include <iomanip>
+#include <iostream>
 #include <boost/filesystem.hpp>
-
+#include <boost/archive/basic_xml_archive.hpp>
+#include <boost/property_tree/xml_parser.hpp>
+#include <boost/algorithm/string/trim.hpp>
+#include <boost/foreach.hpp>
+#include <boost/optional/optional.hpp>
 
 namespace fs = boost::filesystem;
 using namespace std;
@@ -29,90 +35,30 @@ using namespace std;
 
 //}
 
-#include <boost/archive/basic_xml_archive.hpp>
+void main(void){
 
-#include <boost/property_tree/xml_parser.hpp>
-
-#include <boost/algorithm/string/trim.hpp>
-
-#include <iostream>
-
-#include <string>
-
-
-
-void main(void)
-
-{
-
-	//essa variavel pt guarda toda a árvore de nós do xml lida do arquivo.
-
+	//LENDO ARQUIVO DE CONFIGURAÇÃO "config.xml" E SALVANDO VALORES
 	boost::property_tree::ptree pt;
 
+	string fileName = "../config.xml";
 
-	//Path para o arquivo, no meu caso encontra-se na mesma pasta do execultavel
+	try {
+		boost::property_tree::xml_parser::read_xml(fileName.c_str(), 
+				pt ,boost::property_tree::xml_parser::trim_whitespace);
 
-	std::string fileName = "../config.xml";
-
-
-	try
-
-	{       //realize o parser propriamente ditto do arquivo
-
-		boost::property_tree::xml_parser::read_xml(
-
-			fileName.c_str(),
-
-			pt,
-
-			boost::property_tree::xml_parser::trim_whitespace);
-
-
-		//pega o nó raiz
-
-		auto c1 = pt.get_child("xml");
-
-
-		//navegue através de todos os nós filhos da raiz
-
-		for (auto i = c1.begin(); i != c1.end(); i++)
-
-		{
-
-			//pega os filhos deste nós que se esta visitando    
-
-			auto c2 = i->second;
-
-
-
-			//navegue através dos filhos caso este nó tenha  
-
-			for (auto j = c2.begin(); j != c2.end(); j++)
-
-			{
-
-				//pega os valores dos atributos e imprimi na tela
-
-				std::cout << "attr:" << j->second.get<std::string>("<xmlattr>.attr") << " | ";
-
-				std::cout << "value:" << j->second.get<std::string>("<xmlattr>.value") << std::endl;
-
-			}
-
-		}
+		string origin = pt.get<string>("xml.config.origin.<xmlattr>.value");
+		cout << "Caminho de origem: " << origin << endl;
+		string destiny = pt.get<string>("xml.config.destiny.<xmlattr>.value");
+		cout << "Caminho de destinho: " << destiny << endl;
+		string fileName = pt.get<string>("xml.config.file_name.<xmlattr>.value");
+		cout << "Nome do arquivo: " << fileName << endl;
+		int loopTimer = pt.get<int>("xml.config.timer.<xmlattr>.value");
+		cout << "Tempo de repeticao: " << loopTimer << endl;
+		string mostRecent = pt.get<string>("xml.config.most_recent.<xmlattr>.value");
+		cout << "Most Recent Files Mode: " << mostRecent << endl;
 
 	}
-
-	catch (...)
-
-	{
-
-		//caso tenha ocorra algum erro
-
-		std::cout << "Error: parser fail!" << std::endl;
-
-		return;
-
+	catch(...) {
+		cout << "Erro";
 	}
-
 }
