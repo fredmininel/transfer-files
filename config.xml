@@ -16,11 +16,11 @@
 	<config>
 		<origin value="C:\Users\fredm\OneDrive\Área de Trabalho\Teste_C++\teste\ConsoleApplication1\ConsoleApplication1"/>
 
-		<destiny value="C:\Users\fredm\OneDrive\Área de Trabalho\Teste_C++\teste\ConsoleApplication1\ConsoleApplication1"/>		
+		<destiny value="C:\Boost"/>		
 
-                <file_name value="teste"/>
+                <file_name value=".rar"/>
 
-		<regex search="true" value="[A-Z]{3}"/>
+		<regex search="false" value="[A-Z]{3}"/>
 		
 		<timer value="60"/>
 

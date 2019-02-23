@@ -15,70 +15,54 @@ namespace fs = boost::filesystem;
 using namespace std;
 
 
-//int main()
-//{
-	//fs::create_directories("sandbox/dir/subdir");
+void copyFindFiles(string origin, string destiny){
 
-	//try // If you want to avoid exception handling, then use the error code overload of the following functions.
-	//{
-		//fs::copy_file("C:\\teste.xlsx", "C:\\Users\\fredm\\OneDrive\\Área de Trabalho\\relatorio estagio\\teste.xlsx", fs::copy_option::overwrite_if_exists);
-		//std::cout << "Arquivo copiado com sucesso !" << std::endl;
-	//}
-	//catch (std::exception& e) // Not using fs::filesystem_error since std::bad_alloc can throw too.  
-	//{
-	//	std::cout << e.what();
-	//}
-	//Config cfg;
-	//cfg.readFile("hello.conf");
+	try {
+		fs::copy_file(origin, destiny, fs::copy_option::overwrite_if_exists);
+		cout << "Arquivo copiado com sucesso !" << endl;
+	}
+	catch (...) {
+		cout << "Erro ao copiar" << endl;
+	}
 
-	//string name = cfg.lookup("target");
-	//cout << "Store name: " << name << endl << endl;
+}
 
-//}
-
-void findFiles(string origin, string fileName, string regexSearch, string regexValue) {
+void findFiles(string origin, string destiny, string fileName, string regexSearch, string regexValue) {
 	bool find = false;
 	regex rx = regex(regexValue);
 	for (const auto& p : fs::directory_iterator(origin)) {
 		string nomeAux = p.path().filename().string();
-		string fileFullPath;
+		string fileFullPathOrigin;
+		string fileFullPathDestiny;
+		bool fileMatch = false;
 		int pos = nomeAux.find(fileName);
 		int posExt = fileName.find(".");
 		bool findRegex = regex_search(nomeAux, rx);
 
-		if (regexSearch == "false") {
-			if (nomeAux.compare(fileName) == 0) { //compara o nome completo do arquivo (nome + extensão)
-				fileFullPath = origin;
-				fileFullPath += string("\\") + string(nomeAux);
-				cout << fileFullPath << endl;
-				find = true;
-			}
-			else if (pos == 0) { // compara prefixo do nome passado pelo arquivo de configuração com arquivo da pasta de origem
-				fileFullPath = origin;
-				fileFullPath += string("\\") + string(nomeAux);
-				cout << fileFullPath << endl;
-				cout << findRegex << endl;
-				find = true;
-			}
-			else if (posExt == 0) { //compara com a extensão passada pelo arquivo de configuração com as extensões dos arquivos da pasta de origem
-				if (p.path().extension() == fileName) {
-					fileFullPath = origin;
-					fileFullPath += string("\\") + string(nomeAux);
-					cout << fileFullPath << endl;
-					find = true;
-				}
+		if (regexSearch == "false" ) {
+			//procura na pasta de destino para encontrar algum dos casos: nome completo do arquivo, prefixo ou extensão
+			if ((nomeAux.compare(fileName) == 0) || (pos == 0)  || ((posExt == 0) && (p.path().extension() == fileName))){ 
+				fileMatch = true;
 			}
 		}
 		else {
+			//caso a busca seja setada por regex, verifica se a busca encontrou algum arquivo
 			if (findRegex == true) {
-				fileFullPath = origin;
-				fileFullPath += string("\\") + string(nomeAux);
-				cout << fileFullPath << endl;
-				find = true;
+				fileMatch = true;
 			}
 		}
+
+		if (fileMatch == true) {
+			fileFullPathOrigin = origin;
+			fileFullPathDestiny = destiny;
+			fileFullPathOrigin += string("\\") + string(nomeAux);
+			fileFullPathDestiny += string("\\") + string(nomeAux);
+			copyFindFiles(fileFullPathOrigin, fileFullPathDestiny);
+			find = true;
+			fileMatch = false;
+		}
 	}
-	if (find == false) { //verificação se encntrou o arquivo especificado
+	if (find == false) { //verificação se encontrou o arquivo especificado
 		cout << "Arquivo nao encontrado, por favor, corriga o nome" << endl;
 	}
 }
@@ -107,7 +91,8 @@ int main(void){
 		string regexValue = pt.get<string>("xml.config.regex.<xmlattr>.value");
 		string regexSearch = pt.get<string>("xml.config.regex.<xmlattr>.search");
 		cout << "Search Regex: " << regexSearch << endl;
-		findFiles(origin, fileName, regexSearch, regexValue);
+		
+		findFiles(origin, destiny, fileName, regexSearch, regexValue);
 
 	}
 	catch(...) {
