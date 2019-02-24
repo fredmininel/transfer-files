@@ -1,18 +1,12 @@
 #include <stdio.h>
-#include <string>
 #include <stdlib.h>
 #include <conio.h>
-#include <iomanip>
 #include <iostream>
 #include <regex>
 #include <ctime>
-#include <time.h>
 #include <boost/filesystem.hpp>
 #include <boost/archive/basic_xml_archive.hpp>
 #include <boost/property_tree/xml_parser.hpp>
-#include <boost/algorithm/string/trim.hpp>
-#include <boost/foreach.hpp>
-#include <boost/optional/optional.hpp>
 #include <boost/thread/thread.hpp>
 
 namespace fs = boost::filesystem;
