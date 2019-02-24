@@ -8,7 +8,9 @@
 	regex: search informa se deve ou não ocorrer a busca por regex, ignorando a busca pelo nome, formato = true or false
 	       value é a própria regex
 	timer é o valor em segundos de quanto em quanto tempo a função repete o loop e copia o(s) arquivo(s) novamente
-	most_recent_value é um parâmetro para definir se busca deve ou não ser feita com base no arquivo mais novo, formato = true or false
+	newest_oldest_search é um parâmetro para definir se busca deve ou não ser feita com base no arquivo mais novo ou mais velho,
+		search: formato = true or false,
+		value: o parametro de busca, pelo arquivo mais novo ou mais velho, formato: newest or oldest.
 -->
 
 <xml>
@@ -18,13 +20,13 @@
 
 		<destiny value="C:\Boost"/>		
 
-                <file_name value="tManeiro"/>
+                <file_name value=".txt"/>
 
 		<regex search="false" value="[A-Z]{3}"/>
 		
 		<timer value="10"/>
 
-		<most_recent value="false"/>
+		<newest_oldest_search search="true" value="newest"/>
 
         </config>
 	
