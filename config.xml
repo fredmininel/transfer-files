@@ -18,11 +18,11 @@
 
 		<destiny value="C:\Boost"/>		
 
-                <file_name value=".rar"/>
+                <file_name value="tManeiro"/>
 
 		<regex search="false" value="[A-Z]{3}"/>
 		
-		<timer value="60"/>
+		<timer value="10"/>
 
 		<most_recent value="false"/>
 
