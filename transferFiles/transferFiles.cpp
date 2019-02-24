@@ -1,6 +1,7 @@
-#include <fstream>
 #include <stdio.h>
 #include <string>
+#include <stdlib.h>
+#include <conio.h>
 #include <iomanip>
 #include <iostream>
 #include <regex>
@@ -10,19 +11,21 @@
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/foreach.hpp>
 #include <boost/optional/optional.hpp>
+#include <boost/thread/thread.hpp>
 
 namespace fs = boost::filesystem;
 using namespace std;
 
 
-void copyFindFiles(string origin, string destiny){
+void transferFindFiles(string origin, string destiny){
 
 	try {
 		fs::copy_file(origin, destiny, fs::copy_option::overwrite_if_exists);
-		cout << "Arquivo copiado com sucesso !" << endl;
+		cout << "Arquivo transferido com sucesso !" << endl;
+		fs::remove(origin);
 	}
 	catch (...) {
-		cout << "Erro ao copiar" << endl;
+		cout << "Erro ao transferir o arquivo" << endl;
 	}
 
 }
@@ -57,13 +60,13 @@ void findFiles(string origin, string destiny, string fileName, string regexSearc
 			fileFullPathDestiny = destiny;
 			fileFullPathOrigin += string("\\") + string(nomeAux);
 			fileFullPathDestiny += string("\\") + string(nomeAux);
-			copyFindFiles(fileFullPathOrigin, fileFullPathDestiny);
+			transferFindFiles(fileFullPathOrigin, fileFullPathDestiny);
 			find = true;
 			fileMatch = false;
 		}
 	}
 	if (find == false) { //verificação se encontrou o arquivo especificado
-		cout << "Arquivo nao encontrado, por favor, corriga o nome" << endl;
+		cout << "File(s) not found !" << endl;
 	}
 }
 
@@ -72,6 +75,7 @@ int main(void){
 	//LENDO ARQUIVO DE CONFIGURAÇÃO "config.xml" E SALVANDO VALORES
 	boost::property_tree::ptree pt;
 
+	char tecla;
 	string fileName = "../config.xml";
 
 	try {
@@ -90,12 +94,25 @@ int main(void){
 		cout << "Most Recent Files Mode: " << mostRecent << endl;
 		string regexValue = pt.get<string>("xml.config.regex.<xmlattr>.value");
 		string regexSearch = pt.get<string>("xml.config.regex.<xmlattr>.search");
-		cout << "Search Regex: " << regexSearch << endl;
+		cout << "Search Regex: " << regexSearch << endl << endl;
+
+		cout << "Press 'q' to terminate process" << endl << endl;
+
+		while (true) {
+			findFiles(origin, destiny, fileName, regexSearch, regexValue);
 		
-		findFiles(origin, destiny, fileName, regexSearch, regexValue);
+			cout << "Find File(s), waiting..." << endl;
+
+			for (int i = 1; i <= loopTimer; i++) {
+				boost::this_thread::sleep_for(boost::chrono::seconds(1));
+				if (kbhit() && (tecla = getch()) && (tecla == 'q')) {
+					return 0;
+				}
+			}
+		}
 
 	}
 	catch(...) {
-		cout << "Erro";
+		cout << "Error";
 	}
 }
