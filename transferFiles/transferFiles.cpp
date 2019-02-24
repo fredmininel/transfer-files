@@ -23,11 +23,11 @@ void transferFindFiles(string origin, string destiny){
 
 	try {
 		fs::copy_file(origin, destiny, fs::copy_option::overwrite_if_exists);
-		cout << "Arquivo transferido com sucesso !" << endl;
+		cout << "File transfer with success !" << endl;
 		fs::remove(origin);
 	}
 	catch (...) {
-		cout << "Erro ao transferir o arquivo" << endl;
+		cout << "Error transfer file" << endl;
 	}
 
 }
@@ -139,21 +139,21 @@ int main(void){
 				pt ,boost::property_tree::xml_parser::trim_whitespace);
 
 		string origin = pt.get<string>("xml.config.origin.<xmlattr>.value");
-		cout << "Caminho de origem: " << origin << endl;
+		cout << "Origin path: " << origin << endl;
 		string destiny = pt.get<string>("xml.config.destiny.<xmlattr>.value");
-		cout << "Caminho de destinho: " << destiny << endl;
+		cout << "Destiny path: " << destiny << endl;
 		string fileName = pt.get<string>("xml.config.file_name.<xmlattr>.value");
-		cout << "Nome do arquivo: " << fileName << endl;
+		cout << "File Name: " << fileName << endl;
 		int loopTimer = pt.get<int>("xml.config.timer.<xmlattr>.value");
-		cout << "Tempo de repeticao: " << loopTimer << endl;
+		cout << "Loop time: " << loopTimer << " seconds" << endl;
 		bool newestOldestSearch = pt.get<bool>("xml.config.newest_oldest_search.<xmlattr>.search");
 		string newestOldestValue = pt.get<string>("xml.config.newest_oldest_search.<xmlattr>.value");
 		
 		if (newestOldestSearch == true) {
-			cout << "Most Recent/Oldest Files Search: true" << " --- Mode: " << newestOldestValue << endl;
+			cout << "Newest/Oldest Files Search: true" << " --- Mode: " << newestOldestValue << endl;
 		}
 		else {
-			cout << "Most Recent/Oldest Files Search: false" << endl;
+			cout << "Newest/Oldest Files Search: false" << endl;
 		}
 		
 		string regexValue = pt.get<string>("xml.config.regex.<xmlattr>.value");
