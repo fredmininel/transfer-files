@@ -1,7 +1,7 @@
 # Instalando bibliotecas boost para o GCC (MinGW) no Windows
 
 Para esse projeto, foi utlizada a versão 1.67.0 da biblioteca, dessa forma, os passos abaixo serão exemplificados por ela.
-O boost source pode ser baixado direto do site deles [Boost](https://www.boost.org/).
+O boost source pode ser baixado direto do próprio site [Boost](https://www.boost.org/).
 
 ## Configuração de pastas
 1. Extrair a boost source baixada, por ex. `C: \ Arquivos de programas \ boost_1_67_0`.
