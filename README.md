@@ -11,6 +11,7 @@ Além das bibliotecas padrão do C++, para esse projeto foi utilizada a bibliote
 
 Mais informações podem ser encontrada nesse link [Boost C++ Library](https://www.boost.org/).
 
+Para instalação:
 - Guia completo de instalação para o windows, nesse link [Guia Instalação Boost Windows](https://gist.github.com/sim642/29caef3cc8afaa273ce6#file-boost-windows-md).
 - Guia completo de instalação para linux, nesse link [Guia instalação Boost Linux](aaaa).
 
