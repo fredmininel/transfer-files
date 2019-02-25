@@ -13,7 +13,7 @@ Mais informações podem ser encontrada nesse link [Boost C++ Library](https://w
 
 Para instalação:
 - Guia completo de instalação para o windows, nesse link [Guia Instalação Boost Windows](https://github.com/fredmininel/transfer-files/blob/master/docs/Guia%20de%20instala%C3%A7%C3%A3o%20Boost%20para%20Windows.md).
-- Guia completo de instalação para linux, nesse link [Guia instalação Boost Linux](aaaa).
+- Guia completo de instalação para linux, nesse link [Guia instalação Boost Linux](https://www.boost.org/doc/libs/1_69_0/more/getting_started/unix-variants.html).
 
 # Utilização #
 
@@ -31,5 +31,5 @@ Como se trata de um programa para transferência de arquivos apenas localmente, 
 
 Para uma explicação mais completo sobre o projeto e suas as funcionalidades como o uso de cada função, fluxo do execução, parâmetros e variáveis, você pode acessar em [Fluxo de Execução] (link fluxo).
 
-Para mais informações sobre o arquivo de configuração xml, assim como a explicação de cada tag e o formato desejado de preenchimento, acesse [Arquivo de configuração XML] (link XML).
+Para mais informações sobre o arquivo de configuração xml, assim como a explicação de cada tag e o formato desejado de preenchimento, acesse [Arquivo de configuração XML] (https://github.com/fredmininel/transfer-files/blob/master/docs/Arquivo%20de%20Configura%C3%A7%C3%A3o%20XML.pdf).
 
