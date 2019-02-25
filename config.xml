@@ -1,9 +1,9 @@
 <xml>
 
 	<config>
-		<origin value="C:\Users\fredm\OneDrive\Área de Trabalho\Teste_C++\teste\ConsoleApplication1\ConsoleApplication1"/>
+		<origin value="C:\Users\fredm\OneDrive\Área de Trabalho"/>
 
-		<destiny value="C:\Boost"/>		
+		<destiny value="C:\Arquivo de Program\teste"/>		
 
                 <file_name value=".txt"/>
 
