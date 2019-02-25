@@ -19,7 +19,8 @@ Mais informações podem ser encontrada nesse link [Boost C++ Library](https://w
 Para fazer uso desse programa, basta você fazer o download do código ou clonar na sua máquina, compilar o arquivo .cpp dentro da pasta "transfer-files", editar o xml de configuração para definir o caminhos de acordo com seu computador e sua necessidade. Feito isso, basta executar o programa que ele exibirá um prompt com as informações passadas e o atual status de execução.
 
 Fique a vontade para fazer o download ou clona o projeto em sua máquina:
-    `https://github.com/fredmininel/transfer-files.git`
+  
+  `https://github.com/fredmininel/transfer-files.git`
 
 # Testes #
 
