@@ -31,5 +31,5 @@ Como se trata de um programa para transferência de arquivos apenas localmente, 
 
 Para uma explicação mais completo sobre o projeto e suas as funcionalidades como o uso de cada função, fluxo do execução, parâmetros e variáveis, você pode acessar em [Fluxo de Execução] (link fluxo).
 
-Para mais informações sobre o arquivo de configuração xml, assim como a explicação de cada tag e o formato desejado de preenchimento, acesse [Arquivo de configuração XML] (https://github.com/fredmininel/transfer-files/blob/master/docs/Arquivo%20de%20Configura%C3%A7%C3%A3o%20XML.pdf).
+Para mais informações sobre o arquivo de configuração xml, assim como a explicação de cada tag e o formato desejado de preenchimento, acesse [Arquivo de configuração XML](https://github.com/fredmininel/transfer-files/blob/master/docs/Arquivo%20de%20Configura%C3%A7%C3%A3o%20XML.pdf).
 
