@@ -31,3 +31,7 @@ b2 --build-dir = "C: \ Arquivos de Programas \ boost_1_67_0 \ build" --prefix = 
 1. Adicione a pasta include, ou seja, `C: \ Arquivos de Programas \ boost \ include \ boost-1_59`.
 2. Adicione a pasta do link, ou seja, `C: \ Arquivos de Programas \ boost \ lib`.
 3. Vincular bibliotecas necessárias, por exemplo `libboost_regex-mgw48-mt-1_67.a`.
+
+
+
+Esse guia foi feito por "sim642" e se encontra em [Installing boost libraries for GCC (MinGW) on Windows](https://gist.github.com/sim642/29caef3cc8afaa273ce6#file-boost-windows-md), apenas foi traduzido para ser inserido aqui.
