@@ -34,4 +34,4 @@ b2 --build-dir = "C: \ Arquivos de Programas \ boost_1_67_0 \ build" --prefix = 
 
 
 
-Esse guia foi feito por "sim642" e se encontra em [Installing boost libraries for GCC (MinGW) on Windows](https://gist.github.com/sim642/29caef3cc8afaa273ce6#file-boost-windows-md), apenas foi traduzido para ser inserido aqui.
+Esse guia foi feito por @sim642 e se encontra em [Installing boost libraries for GCC (MinGW) on Windows](https://gist.github.com/sim642/29caef3cc8afaa273ce6#file-boost-windows-md), apenas foi traduzido para ser inserido aqui.
