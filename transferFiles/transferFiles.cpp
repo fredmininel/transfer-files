@@ -1,12 +1,14 @@
 #include <stdio.h>
+#include <string>
 #include <stdlib.h>
 #include <conio.h>
+#include <iomanip>
 #include <iostream>
 #include <regex>
-#include <ctime>
 #include <boost/filesystem.hpp>
 #include <boost/archive/basic_xml_archive.hpp>
 #include <boost/property_tree/xml_parser.hpp>
+#include <boost/algorithm/string/trim.hpp>
 #include <boost/thread/thread.hpp>
 
 namespace fs = boost::filesystem;
@@ -37,7 +39,7 @@ int compareDate(vector<string> filePaths, string newestOldestValue){
 	int maisVelho = 0;
 
 	for (auto i = filePaths.rbegin(); i != filePaths.rend(); ++i) {
-		timeEdit = boost::filesystem::last_write_time(filePaths[index]);
+		timeEdit = fs::last_write_time(filePaths[index]);
 
 		if (index == 0) {
 			maior = difftime(now, timeEdit);
@@ -61,24 +63,33 @@ int compareDate(vector<string> filePaths, string newestOldestValue){
 	else if (newestOldestValue == "oldest") {
 		return maisVelho;
 	}
+	else {
+		cout << "Wrong format for newestOldestValue" << endl;
+		return 0;
+	}
 }
 
 void findFiles(string origin, string destiny, string fileName, bool regexSearch, string regexValue,
 				bool newestOldestSearch, string newestOldestValue) {
 
-	bool find = false;
 	regex rx = regex(regexValue);
 	vector <string> filePathDestiny;
 	vector <string> filePathOrigin;
+	string nomeAux;
+	string fileFullPathOrigin;
+	string fileFullPathDestiny;
+	int pos;
+	int posExt;
+	bool findRegex;
+	bool fileMatch;
+	bool find = false;
 
 	for (const auto& p : fs::directory_iterator(origin)) {
-		string nomeAux = p.path().filename().string();
-		string fileFullPathOrigin;
-		string fileFullPathDestiny;
-		bool fileMatch = false;
-		int pos = nomeAux.find(fileName);
-		int posExt = fileName.find(".");
-		bool findRegex = regex_search(nomeAux, rx);
+		nomeAux = p.path().filename().string();
+		fileMatch = false;
+		pos = nomeAux.find(fileName);
+		posExt = fileName.find(".");
+		findRegex = regex_search(nomeAux, rx);
 
 		if (regexSearch == false ) {
 			//procura na pasta de destino para encontrar algum dos casos: nome completo do arquivo, prefixo ou extensão
@@ -99,7 +110,6 @@ void findFiles(string origin, string destiny, string fileName, bool regexSearch,
 			fileFullPathOrigin += string("\\") + string(nomeAux);
 			fileFullPathDestiny += string("\\") + string(nomeAux);
 			find = true;
-			fileMatch = false;
 			if (newestOldestSearch == false) {
 				transferFindFiles(fileFullPathOrigin, fileFullPathDestiny);
 			}
@@ -152,7 +162,13 @@ int main(void){
 		
 		string regexValue = pt.get<string>("xml.config.regex.<xmlattr>.value");
 		bool regexSearch = pt.get<bool>("xml.config.regex.<xmlattr>.search");
-		cout << "Search Regex: " << regexSearch << endl << endl;
+
+		if (regexSearch == true) {
+			cout << "Search Regex: true" << endl << endl;
+		}
+		else {
+			cout << "Search Regex: false" << endl << endl;
+		}
 
 		cout << "Press 'q' to terminate process" << endl << endl;
 
